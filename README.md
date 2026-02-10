@@ -54,10 +54,11 @@ GitHub Sentinel 是专为大模型（LLMs）时代打造的智能信息检索和
 - **多模型支持**：结合 OpenAI 和 Ollama 模型，生成自然语言项目报告，提供更智能、精准的信息服务。
 - **定时任务**：支持以守护进程方式执行定时任务，确保信息更新及时获取。
 - **图形化界面**：基于 Gradio 实现了简单易用的 GUI 操作模式，降低使用门槛。
+- **Twitter AI 资讯**：集成 Twitter API，自动获取和分析 AI 领域的最新资讯和趋势。
 - **容器化**：项目支持 Docker 构建和容器化部署，便于在不同环境中快速部署和运行。
 - **持续集成**：实现了完备的单元测试，便于进一步配置生产级 CI/CD 流程，确保项目的稳定性和高质量交付。
 
-GitHub Sentinel 不仅能帮助用户自动跟踪和分析 `GitHub 开源项目` 的最新动态，还能快速扩展到其他信息渠道，如 `Hacker News` 的热门话题，提供更全面的信息挖掘与分析能力。
+GitHub Sentinel 不仅能帮助用户自动跟踪和分析 `GitHub 开源项目` 的最新动态，还能快速扩展到其他信息渠道，如 `Hacker News` 的热门话题和 `Twitter AI 资讯`，提供更全面的信息挖掘与分析能力。
 
 ### 产品截图
 
@@ -81,7 +82,7 @@ pip install -r requirements.txt
 
 ### 2. 配置应用
 
-编辑 `config.json` 文件，以设置您的 GitHub Token、Email 设置（以腾讯企微邮箱为例）、订阅文件、更新设置，大模型服务配置（支持 OpenAI GPT API 和 Ollama 私有化大模型服务）,以及自动检索和生成的报告类型（GitHub项目进展， Hacker News 热门话题和前沿技术趋势）：
+编辑 `config.json` 文件，以设置您的 GitHub Token、Email 设置（以腾讯企微邮箱为例）、订阅文件、更新设置，大模型服务配置（支持 OpenAI GPT API 和 Ollama 私有化大模型服务），以及自动检索和生成的报告类型（GitHub项目进展，Hacker News 热门话题和前沿技术趋势，Twitter AI 资讯）：
 
 ```json
 {
@@ -107,22 +108,33 @@ pip install -r requirements.txt
     "report_types": [
         "github",
         "hacker_news_hours_topic",
-        "hacker_news_daily_report"
+        "hacker_news_daily_report",
+        "twitter_ai_news"
     ],
+    "twitter": {
+        "bearer_token": "your_twitter_bearer_token"
+    },
     "slack": {
         "webhook_url": "your_slack_webhook_url"
     }
 }
 ```
 
-**出于安全考虑:** GitHub Token 和 Email Password 的设置均支持使用环境变量进行配置，以避免明文配置重要信息，如下所示：
+**出于安全考虑:** GitHub Token、Email Password 和 Twitter Bearer Token 的设置均支持使用环境变量进行配置，以避免明文配置重要信息，如下所示：
 
 ```shell
 # Github
 export GITHUB_TOKEN="github_pat_xxx"
 # Email
 export EMAIL_PASSWORD="password"
+# Twitter
+export TWITTER_BEARER_TOKEN="your_bearer_token"
 ```
+
+**Twitter API 配置说明：**
+- 访问 [Twitter Developer Portal](https://developer.twitter.com/) 创建应用并获取 Bearer Token
+- Twitter 功能为可选功能，如未配置则该功能将不可用
+- 详细配置和使用说明请参考 [Twitter 集成文档](docs/twitter_integration.md)
 
 
 ### 3. 如何运行

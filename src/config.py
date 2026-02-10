@@ -29,6 +29,10 @@ class Config:
             # 加载报告类型配置
             self.report_types = config.get('report_types', ["github", "hacker_news"])  # 默认报告类型
             
+            # 加载 Twitter 相关配置
+            twitter_config = config.get('twitter', {})
+            self.twitter_bearer_token = os.getenv('TWITTER_BEARER_TOKEN', twitter_config.get('bearer_token'))
+            
             # 加载 Slack 配置
             slack_config = config.get('slack', {})
             self.slack_webhook_url = slack_config.get('webhook_url')
