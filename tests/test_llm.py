@@ -40,19 +40,25 @@ class TestLLM(unittest.TestCase):
             llm = LLM(self.config)
         mock_log_error.assert_called_with("不支持的模型类型: invalid_model")
 
-    @patch('llm.requests.post')
+    @patch('llm.requests.Session')
     @patch('llm.LOG.error')
-    def test_ollama_invalid_response_structure(self, mock_log_error, mock_post):
+    def test_ollama_invalid_response_structure(self, mock_log_error, mock_session_class):
         """
         测试 Ollama API 返回的响应结构无效时的错误处理路径。
         """
         # 模拟 Ollama API 的无效响应
         mock_response = MagicMock()
         mock_response.json.return_value = {"invalid_key": "no_content_here"}
-        mock_post.return_value = mock_response
+        
+        mock_session = MagicMock()
+        mock_session.post.return_value = mock_response
+        mock_session_class.return_value = mock_session
+
+        # 重新创建llm以使用mock session
+        llm = LLM(self.config)
 
         with self.assertRaises(ValueError):
-            self.llm.generate_report(self.system_prompt, self.github_content)
+            llm.generate_report(self.system_prompt, self.github_content)
         mock_log_error.assert_called_with("生成报告时发生错误：Ollama API 返回的响应结构无效")
 
 

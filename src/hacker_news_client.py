@@ -7,11 +7,12 @@ from logger import LOG  # 导入日志模块
 class HackerNewsClient:
     def __init__(self):
         self.url = 'https://news.ycombinator.com/'  # Hacker News的URL
+        self.session = requests.Session()  # 创建Session对象用于连接复用
 
     def fetch_top_stories(self):
         LOG.debug("准备获取Hacker News的热门新闻。")
         try:
-            response = requests.get(self.url, timeout=10)
+            response = self.session.get(self.url, timeout=10)
             response.raise_for_status()  # 检查请求是否成功
             top_stories = self.parse_stories(response.text)  # 解析新闻数据
             return top_stories

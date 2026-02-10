@@ -16,6 +16,7 @@ class LLM:
             self.client = OpenAI()  # 创建OpenAI客户端实例
         elif self.model == "ollama":
             self.api_url = config.ollama_api_url  # 设置Ollama API的URL
+            self.session = requests.Session()  # 创建Session对象用于连接复用
         else:
             LOG.error(f"不支持的模型类型: {self.model}")
             raise ValueError(f"不支持的模型类型: {self.model}")  # 如果模型类型不支持，抛出错误
@@ -77,7 +78,7 @@ class LLM:
                 "stream": False
             }
 
-            response = requests.post(self.api_url, json=payload)  # 发送POST请求到Ollama API
+            response = self.session.post(self.api_url, json=payload)  # 发送POST请求到Ollama API
             response_data = response.json()
 
             # 调试输出查看完整的响应结构
