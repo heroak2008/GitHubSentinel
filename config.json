@@ -21,8 +21,12 @@
     "report_types": [
         "github",
         "hacker_news_hours_topic",
-        "hacker_news_daily_report"
+        "hacker_news_daily_report",
+        "twitter_ai_news"
     ],
+    "twitter": {
+        "bearer_token": "your_twitter_bearer_token"
+    },
     "slack": {
         "webhook_url": "your_slack_webhook_url"
     }
