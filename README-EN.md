@@ -52,10 +52,11 @@ GitHub Sentinel is an `AI Agent` designed for the era of large language models (
 - **Multi-Model Support**: Leverage OpenAI and Ollama models to generate natural language project reports, offering more intelligent and accurate information services.
 - **Scheduled Tasks**: Supports scheduled tasks running as a daemon process, ensuring timely retrieval of updates.
 - **Graphical Interface**: Provides a simple and user-friendly GUI based on Gradio, making it accessible to a wider audience.
+- **Twitter AI News**: Integrated with Twitter API to automatically fetch and analyze the latest AI news and trends.
 - **Containerization**: The project supports Docker build and containerized deployment, allowing quick and easy setup in different environments.
 - **Continuous Integration**: Comprehensive unit tests are implemented, facilitating the configuration of production-level CI/CD pipelines to ensure project stability and high-quality delivery.
 
-GitHub Sentinel not only helps users automatically track and analyze the progress of `GitHub open-source projects` but also extends its capabilities to other information sources, such as trending topics on `Hacker News`, providing a more comprehensive approach to information extraction and analysis.
+GitHub Sentinel not only helps users automatically track and analyze the progress of `GitHub open-source projects` but also extends its capabilities to other information sources, such as trending topics on `Hacker News` and `Twitter AI News`, providing a more comprehensive approach to information extraction and analysis.
 
 ### Product Screenshot
 
